@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
+    <script>
+        let badgeTestIndex = 0;
+    </script>
+</head>
+
+<body>
+    <div id="mocha">
+
+        <auto-badge name="synthetic1"></auto-badge>
+        <a onclick='document.dispatchEvent(new CustomEvent("auto-update-synthetic1", { detail: {content: { status: "Status", label: `Label ${++badgeTestIndex}` } } }))'
+            href="#">
+            Update Badge using custom event
+        </a>
+
+    </div>
+
+
+    <div id="custom-element-bdd-visualization"></div>
+
+    <script src="https://unpkg.com/chai/chai.js"></script>
+    <script src="https://unpkg.com/mocha/mocha.js"></script>
+
+    <script class="mocha-init">
+        mocha.setup('bdd');
+        mocha.checkLeaks();
+    </script>
+    <script class="mocha-exec" type="module">
+        import * as mod from "./mod.auto.js";
+        import * as patternBDD from "./pattern/mod_bdd.js";
+        import * as badgeBDD from "./badge/mod_bdd.js";
+        import * as wsEditableBDD from "./workspace-editable/mod_bdd.js";
+
+        const universalDepsSupplier = () => ({ ...mod, });
+        const testDepsSupplier = () => ({
+            assert: chai.assert,
+            testContainerElemSupplier: () => document.getElementById("custom-element-bdd-visualization")
+        });
+
+        // pass dependencies into test cases, don't pollute global
+        await patternBDD.describeModule(universalDepsSupplier, testDepsSupplier);
+        await badgeBDD.describeModule(universalDepsSupplier, testDepsSupplier);
+        await wsEditableBDD.describeModule(universalDepsSupplier, testDepsSupplier);
+
+        mocha.run();
+    </script>
+</body>
+
+</html>

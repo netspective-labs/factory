@@ -1,0 +1,36 @@
+<!---
+route:
+  unit: venn
+  label: Venny Venn Diagrams
+--->
+See <a href="https://github.com/pshihn/venn">pshihn/venn</a> library.
+
+<script type="module" src="https://unpkg.com/venny?module"></script>
+
+<venn-diagram>
+  <venn-set name="A" label="Apples"></venn-set>
+  <venn-set name="B" label="Oranges"></venn-set>
+  <venn-n sets="A B" label="Fruit"></venn-n>
+</venn-diagram>
+
+<venn-diagram>
+  <venn-set name="A"></venn-set>
+  <venn-set name="B"></venn-set>
+  <venn-n sets="A B" size="5" label="Five"></venn-n>
+</venn-diagram>
+
+<venn-diagram>
+  <venn-set name="A"></venn-set>
+  <venn-set name="B"></venn-set>
+  <venn-n sets="A B" size="1" label="One"></venn-n>
+</venn-diagram>
+
+<venn-diagram>
+  <venn-set name="A" label="Apples"></venn-set>
+  <venn-set name="B" label="Oranges">
+    <venn-set name="C" label="Lemons">
+      <venn-set name="D" label="Limes"></venn-set>
+    </venn-set>
+  </venn-set>
+  <venn-n sets="A B" size="1" label="A+O"></venn-n>
+</venn-diagram>

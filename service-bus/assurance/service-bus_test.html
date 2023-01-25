@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
+    <script>
+        function report() {
+            console.info("%c[service-bus_test.html]%c", "color:#D3D3D3", "color:#999999", ...arguments);
+        }
+
+        // conventional hook factory function name test
+        function sbFactory_testCheckbox1(factory) {
+            const { target: element, serviceBus, serverState } = factory;
+            const observer = `${element.tagName}_${element.id}`;
+            element.onchange = (evt) => {
+                serverState.accessLogEnabled.fetch(serviceBus, { something: true });
+                alert(`Clicked ` + observer);
+            }
+            serviceBus.observeFetchEventResponse(
+                (respPayload, fetchPayload) => report('observed sbFactory_testCheckbox1() fetchResponse', fetchPayload, respPayload),
+                serverState.accessLogEnabled
+            );
+            // since this is a factory function return our new object
+            return { ...factory, observer };
+        }
+
+        // custom hook factory function name test
+        function testCheckbox2ServiceBusFactory(factory) {
+            const { target: element, serverState } = factory;
+            const observer = `${element.tagName}_${element.id}`;
+            element.onchange = (evt) => {
+                alert(`Clicked ` + observer);
+            }
+            // since this is a factory function return our new object
+            return { ...factory, observer };
+        }
+    </script>
+</head>
+
+<body>
+    <p style="text-align: center;"><a href="#" onclick="location.reload()">Rerun Tests</a></p>
+    <div id="mocha"></div>
+    <div id="human-readable-results">
+        <div>
+            <span id="es-badge-container"></span>
+            &nbsp;&nbsp;
+            <span id="ws-badge-container"></span>
+        </div>
+        <div>
+            <!-- when only data-service-bus is specified, we'll look for hook_testCheckbox1 (which is in the discovery method) -->
+            <input class="form-check-input" type="checkbox" id="testCheckbox1" data-service-bus>
+            <label class="form-check-label" for="testCheckbox1">Hookable Checkbox 1</label>
+        </div>
+        <div>
+            <!-- when data-test-ui-control has a value, we'll look for that value: testCheckbox2Hook -->
+            <input class="form-check-input" type="checkbox" id="testCheckbox2"
+                data-service-bus-factory="testCheckbox2ServiceBusFactory">
+            <label class="form-check-label" for="testCheckbox2">Hookable Checkbox 2</label>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/chai/chai.js"></script>
+    <script src="https://unpkg.com/mocha/mocha.js"></script>
+
+    <script class="mocha-init">
+        mocha.setup('bdd');
+        mocha.checkLeaks();
+    </script>
+    <script class="mocha-exec" type="module">
+        import * as mod from "./service-bus_test.auto.js";
+        const assert = chai.assert;
+
+        const esTunnelStateBadge = mod.badgenBlock();
+        esTunnelStateBadge.prepareRenderTarget(() => document.getElementById("es-badge-container"), "render-es-tunnel-state-badge-content");
+        const wsTunnelStateBadge = mod.badgenBlock();
+        wsTunnelStateBadge.prepareRenderTarget(() => document.getElementById("ws-badge-container"), "render-ws-tunnel-state-badge-content");
+        console.log("tunnelStateBadge", esTunnelStateBadge, wsTunnelStateBadge);
+
+        describe("service-bus", () => {
+            it("discover UI controls", () => {
+                const baseURL = '/assurance-synthetic';
+                const serviceBus = new mod.ServiceBus(mod.serviceBusArguments({
+                    fetchBaseURL: `${baseURL}/service-bus/mirror`,
+                    esTunnels: function* (serviceBusOnMessage) {
+                        const esURL = `${baseURL}/sse/tunnel?synthetic=yes`;
+                        const esEndpointValidator = mod.typicalConnectionValidator(`${baseURL}/sse/ping`);
+                        const eventSourceFactory = {
+                            construct: (esURL) => {
+                                // we have to prepare the entire EventSources
+                                // each time we are called; this is because ESs
+                                // can error out and be dropped/recreated
+                                const result = new EventSource(esURL);
+                                // ServiceBus only handles raw messages and does
+                                // not do anything with listeners; this means
+                                // typed events shouldn't be done by ES, it should
+                                // be handled by ServiceBus (that's it's job!)
+                                result.onmessage = serviceBusOnMessage;
+                                return result;
+                            }
+                        };
+                        const esTunnel = new mod.EventSourceTunnel({
+                            esURL, esEndpointValidator, eventSourceFactory, options: {
+                                onConnStateChange: (active, previous, tunnel) => {
+                                    const escn = mod.eventSourceConnNarrative(tunnel);
+                                    report("ES connection state", escn.summary, escn.summaryHint, active, previous);
+                                    esTunnelStateBadge.render({ content: { label: "SSE", status: escn.summary, title: escn.summaryHint, color: escn.color }, autoDisplay: true });
+                                },
+                                onReconnStateChange: (active, previous, reconnStrategy, tunnel) => {
+                                    const escn = mod.eventSourceConnNarrative(tunnel, reconnStrategy);
+                                    report("ES reconnection state", active, previous, escn.summary, escn.summaryHint);
+                                    esTunnelStateBadge.render({ content: { label: "SSE", status: escn.summary, title: escn.summaryHint, color: escn.color }, autoDisplay: true });
+                                },
+                            }
+                        });
+                        esTunnel.init();
+                        yield esTunnel;
+                    },
+                    wsTunnels: function* (serviceBusOnMessage) {
+                        const wsEndpointValidator = mod.typicalConnectionValidator(`${baseURL}/ws/ping`);
+                        const wsURL = `${(window.location.protocol === "https:") ? "wss://" : "ws://"}${window.location.host}${baseURL}/ws/tunnel?synthetic=yes`;
+                        const webSocketFactory = {
+                            construct: (wsURL) => {
+                                // we have to prepare the entire WebSocket
+                                // each time we are called; this is because WSs
+                                // can error out and be dropped/recreated
+                                const result = new WebSocket(wsURL);
+                                // ServiceBus only handles raw messages and does
+                                // not do anything with listeners;
+                                result.onmessage = serviceBusOnMessage;
+                                return result;
+                            }
+                        };
+                        const esTunnel = new mod.WebSocketTunnel({
+                            wsURL, wsEndpointValidator, webSocketFactory, options: {
+                                onConnStateChange: (active, previous, tunnel) => {
+                                    const wscn = mod.webSocketConnNarrative(tunnel);
+                                    report("WS connection state", wscn.summary, wscn.summaryHint, active, previous);
+                                    wsTunnelStateBadge.render({ content: { label: "WebSocket", status: wscn.summary, title: wscn.summaryHint, color: wscn.color }, autoDisplay: true });
+                                },
+                                onReconnStateChange: (active, previous, reconnStrategy, tunnel) => {
+                                    const wscn = mod.webSocketConnNarrative(tunnel, reconnStrategy);
+                                    report("WS reconnection state", active, previous, wscn.summary, wscn.summaryHint);
+                                    wsTunnelStateBadge.render({ content: { label: "WebSocket", status: wscn.summary, title: wscn.summaryHint, color: wscn.color }, autoDisplay: true });
+                                },
+                            }
+                        });
+                        esTunnel.init();
+                        yield esTunnel;
+                    }
+                }));
+                // observe modality-specific payloads
+                serviceBus.observeFetchEvent((payload, reqInit) => console.log("observed universal fetch", payload, reqInit));
+                serviceBus.observeFetchEventResponse((respPayload, fetchPayload) => console.log("observed universal fetchResponse", fetchPayload, respPayload));
+                serviceBus.observeFetchEventError((error, reqInit, fetchPayload) => console.log("observed universal fetchRespError", error, reqInit, fetchPayload));
+                serviceBus.observeEventSource((esPayload) => console.log("observed universal EventSource", esPayload));
+                serviceBus.observeEventSourceError((esPayload) => console.log("observed universal EventSource error", esPayload));
+                serviceBus.observeWebSocketSendEvent((esPayload) => console.log("observed universal WebSocket send", esPayload));
+                serviceBus.observeWebSocketReceiveEvent((esPayload) => console.log("observed universal WebSocket receive", esPayload));
+                serviceBus.observeWebSocketErrorEvent((esPayload) => console.log("observed universal WebSocket error", esPayload));
+
+                // observe modality-independent payloads
+                serviceBus.observeUnsolicitedPayload((esPayload) => console.log("observed universal unsolicited payload from SSE or WS", esPayload));
+                serviceBus.observeSolicitedPayload((esPayload) => console.log("observed universal solicited payload from fetch or WS(TODO) ", esPayload));
+                serviceBus.observeReceivedPayload((esPayload) => console.log("observed universal receive payload from fetch, SSE, or WS", esPayload));
+
+                const accessLogEnabled = mod.binaryStateService((baseURL) => baseURL, () => "testCheckbox1", () => ({ testCheckbox1State: true }));
+                const ping = mod.pingService((baseURL) => baseURL);
+                serviceBus.observeEventSource((payload) => report('observed ping SSE', payload), ping);
+                serviceBus.observeWebSocketReceiveEvent((payload) => report('observed ping WS', payload), ping);
+                const serverState = {
+                    ping,
+                    accessLogEnabled,
+                }
+                report("serviceBus", serviceBus);
+                report("serverState", serverState);
+                for (const factory of mod.walkHooks(
+                    // find hookable controls
+                    document.querySelectorAll("[data-service-bus],[data-service-bus-factory]"),
+                    [
+                        (e) => e.dataset.serviceBus ? e.dataset.serviceBus : undefined,
+                        (e) => e.dataset.serviceBusFactory ? e.dataset.serviceBusFactory : undefined,
+                        (e) => `sbFactory_${e.id}`
+                    ],
+                    (token) => eval(token),
+                    (args) => ({ ...args, serviceBus, serverState }))
+                ) {
+                    // if a hook was found, the test function should have run and set "observer" property
+                    if (factory.observer) {
+                        // "install" the hook as a test
+                        factory.target.dataset.serviceBusObserver = factory.observer;
+                    }
+                }
+                // make sure the hooks were "installed"
+                const hooked = document.querySelectorAll("[data-service-bus-observer]");
+                assert(hooked.length == 2);
+            });
+        });
+
+        mocha.run();
+    </script>
+</body>
+
+</html>

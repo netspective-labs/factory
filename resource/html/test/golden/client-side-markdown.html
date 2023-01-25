@@ -1,0 +1,64 @@
+This page uses the <a href="https://md-block.verou.me/"><code>&lt;md-block></code></a> web component to render markdown
+at runtime (in the client's browser). This can be helpful when you want to mix complex HTML and Markdown formatting.
+
+<script type="module" src="https://md-block.verou.me/md-block.js"></script>
+
+<table>
+    <tr>
+        <td>
+            <mark>The following is client side markdown (which allows you to render markdown in HTML).</mark>
+            <div class="md">
+                <md-block>
+                    # Column 1 Heading
+
+                    Text **bold text** *italic text* ~strike~ from <code>&lt;md-block></code>.
+
+                    ```js
+                    test.foo();
+                    ```
+
+                    ```html
+                    &lt;foo>
+                    ```
+
+                    * List item 1
+                    * List item 2
+                </md-block>
+            </div>
+        </td>
+        <td>
+            <mark>The following is even more client side markdown.</mark>
+            <div class="md">
+                <md-block>
+                    # Column 2 Heading
+
+                    Text **bold text** *italic text* ~strike~ from <code>&lt;md-block></code>.
+
+                    ```js
+                    test.foo();
+                    ```
+
+                    ```html
+                    &lt;foo>
+                    ```
+
+                    * List item 1
+                    * List item 2
+                </md-block>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p>&nbsp;</p>
+            <mark>The following is read from
+                <code>https://raw.githubusercontent.com/netspective-labs/factory/main/README.md</code>,
+                <i>dynamically</i>.</mark>
+            <div class="md">
+                <md-block src="https://raw.githubusercontent.com/netspective-labs/factory/main/README.md">
+                    Unable to fetch `README.md` from GitHub.
+                </md-block>
+            </div>
+        </td>
+    </tr>
+</table>

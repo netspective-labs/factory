@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"extensions": {
+		"recommendations": [
+			"mikestead.dotenv",
+			"denoland.vscode-deno",
+			"humao.rest-client",
+			"yzhang.markdown-all-in-one",
+			"shd101wyy.markdown-preview-enhanced"
+		]
+	},
+	"settings": {
+		"files.trimTrailingWhitespace": true,
+		"[markdown]": {
+			"files.trimTrailingWhitespace": false,
+			"editor.defaultFormatter": "denoland.vscode-deno"
+		},
+		"git.autofetch": true,
+		"terminal.integrated.fontFamily": "CascadianCode NF",
+		"deno.enable": true,
+		"deno.lint": true,
+		"deno.unstable": true,
+		"deno.codeLens.implementations": false,
+		"editor.formatOnSave": true,
+		"[typescript]": {
+			"editor.defaultFormatter": "denoland.vscode-deno"
+		},
+		"hediet.vscode-drawio.theme": "atlas"
+	}
+}

@@ -1,0 +1,1 @@
+The icons in this directory were downloaded from [lightningdesignsystem.com](https://www.lightningdesignsystem.com/assets/downloads/salesforce-lightning-design-system-icons.zip) on Sat 16 Oct 2021 01:38:36 PM EDT.\n\nWe only use the sprites and not all the individual `*.png` and `*.svg` files so this is a partial directory.

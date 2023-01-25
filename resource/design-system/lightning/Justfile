@@ -1,0 +1,15 @@
+# Run regularly to update dependencies and perform similar maintenance
+maintain: acquire-slds-icons
+
+# Acquire Lightning Design System icons from source and cache them locally
+acquire-slds-icons:
+    #!/bin/bash
+    set -euo pipefail
+    SRC_URL=https://www.lightningdesignsystem.com/assets/downloads/salesforce-lightning-design-system-icons.zip
+    TMPDIR=${TMPDIR:-$(dirname $(mktemp))}
+    DEST_TMP=$TMPDIR/salesforce-lightning-design-system-icons.zip
+    DEST_HOME="./client-cargo/image/slds-icons"
+    rm -rf "$DEST_HOME"
+    curl -sSL $SRC_URL > "$DEST_TMP"
+    unzip -qq "$DEST_TMP" action-sprite/* custom-sprite/* doctype-sprite/* standard-sprite/* utility-sprite/* -d $DEST_HOME
+    echo "The icons in this directory were downloaded from [lightningdesignsystem.com]($SRC_URL) on $(date).\n\nWe only use the sprites and not all the individual \`*.png\` and \`*.svg\` files so this is a partial directory." > "$DEST_HOME/README.md"
