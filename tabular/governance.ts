@@ -17,15 +17,15 @@ export type CamelToSnakeCase<S extends string> = S extends
 // deep, 1:1 mapping of a SQL table-like object to its camelCase JS counterpart
 export type TabularRecordToObject<T> = {
   [K in keyof T as SnakeToCamelCase<string & K>]: T[K] extends Date ? T[K]
-    : // deno-lint-ignore ban-types
-    (T[K] extends object ? TabularRecordToObject<T[K]> : T[K]);
+    // deno-lint-ignore ban-types
+    : (T[K] extends object ? TabularRecordToObject<T[K]> : T[K]);
 };
 
 // deep, 1:1 mapping of a camelCase JS object to its snake_case SQL-like counterpart
 export type ObjectToTabularRecord<T> = {
   [K in keyof T as CamelToSnakeCase<string & K>]: T[K] extends Date ? T[K]
-    : // deno-lint-ignore ban-types
-    (T[K] extends object ? ObjectToTabularRecord<T[K]> : T[K]);
+    // deno-lint-ignore ban-types
+    : (T[K] extends object ? ObjectToTabularRecord<T[K]> : T[K]);
 };
 
 export type ValueTransformer<Value, Result> = (value: Value) => Result;

@@ -564,9 +564,11 @@ export function typicalSqlTextLintManager<Context extends SqlEmitContext>(
               return lintedSqlText.lintIssues.length > 0
                 // compute all lint issue texts, pass them through a Set to get unique only
                 ? Array.from(
-                  new Set(lintedSqlText.lintIssues.map((li) =>
-                    steOptions.comments(lintMessage(li))
-                  )),
+                  new Set(
+                    lintedSqlText.lintIssues.map((li) =>
+                      steOptions.comments(lintMessage(li))
+                    ),
+                  ),
                 ).join("\n")
                 : steOptions.comments(noIssuesText);
             },
@@ -589,9 +591,11 @@ export function typicalSqlTextLintManager<Context extends SqlEmitContext>(
               return lintedSqlTmplEngine.lintIssues.length > 0
                 // compute all lint issue texts, pass them through a Set to get unique only
                 ? Array.from(
-                  new Set(lintedSqlTmplEngine.lintIssues.map((li) =>
-                    steOptions.comments(lintMessage(li))
-                  )),
+                  new Set(
+                    lintedSqlTmplEngine.lintIssues.map((li) =>
+                      steOptions.comments(lintMessage(li))
+                    ),
+                  ),
                 ).join("\n")
                 : steOptions.comments(noIssuesText);
             },

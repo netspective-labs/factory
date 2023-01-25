@@ -66,17 +66,16 @@ export const htmlTag = (
   body?: string,
   wrapBody = "",
 ) => {
-  const tag = (typeof ht === "string" ? ht : ht[0]);
-  const params =
-    (typeof ht === "string"
-      ? ""
-      : (" " + (typeof ht[1] === "string"
-        ? ht[1]
-        : (Array.isArray(ht[1])
-          ? ht[1].join(" ")
-          : Object.entries(ht[1]).map((e) =>
-            `${e[0]}=${JSON.stringify(e[1])}`
-          )))));
+  const tag = typeof ht === "string" ? ht : ht[0];
+  const params = typeof ht === "string"
+    ? ""
+    : (" " + (typeof ht[1] === "string"
+      ? ht[1]
+      : (Array.isArray(ht[1])
+        ? ht[1].join(" ")
+        : Object.entries(ht[1]).map((e) =>
+          `${e[0]}=${JSON.stringify(e[1])}`
+        ))));
   return body
     ? `<${tag}${params}>${wrapBody}${body}${wrapBody}</${tag}>`
     : `<${tag}${params}/>`;

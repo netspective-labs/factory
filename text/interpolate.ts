@@ -43,43 +43,42 @@ export function textInterpolator<
     ignore = (token: string) => token, // return as-is if we're ignoring
     unwrap = (wrapped: string) => wrapped.slice(2, wrapped.length - 1), // extract 'xyz' from '${xyz}'
   } = strategy;
-  const interpolateObservable =
-    (typeof replace === "function"
-      ? (text: string) => {
-        const interpolated: InterpolateProps = {} as Any;
-        const transformedText = text.replace(regExp, (wrappedToken) => {
-          const token = unwrap(wrappedToken);
-          const result = replace(token as InterpolatePropKey, wrappedToken);
-          if (result) {
-            (interpolated as Any)[token] = result;
-            return result;
-          }
-          return ignore(wrappedToken);
-        });
-        return {
-          interpolated,
-          transformedText,
-        };
-      }
-      : (text: string) => {
-        const interpolated: InterpolateProps = {} as Any;
-        const transformedText = text.replace(regExp, (wrappedToken) => {
-          const token = unwrap(wrappedToken);
-          if (token in replace) {
-            const result = replace[token as InterpolatePropKey](
-              token as InterpolatePropKey,
-              wrappedToken,
-            );
-            (interpolated as Any)[token] = result;
-            return result;
-          }
-          return ignore(wrappedToken);
-        });
-        return {
-          interpolated,
-          transformedText,
-        };
+  const interpolateObservable = typeof replace === "function"
+    ? (text: string) => {
+      const interpolated: InterpolateProps = {} as Any;
+      const transformedText = text.replace(regExp, (wrappedToken) => {
+        const token = unwrap(wrappedToken);
+        const result = replace(token as InterpolatePropKey, wrappedToken);
+        if (result) {
+          (interpolated as Any)[token] = result;
+          return result;
+        }
+        return ignore(wrappedToken);
       });
+      return {
+        interpolated,
+        transformedText,
+      };
+    }
+    : (text: string) => {
+      const interpolated: InterpolateProps = {} as Any;
+      const transformedText = text.replace(regExp, (wrappedToken) => {
+        const token = unwrap(wrappedToken);
+        if (token in replace) {
+          const result = replace[token as InterpolatePropKey](
+            token as InterpolatePropKey,
+            wrappedToken,
+          );
+          (interpolated as Any)[token] = result;
+          return result;
+        }
+        return ignore(wrappedToken);
+      });
+      return {
+        interpolated,
+        transformedText,
+      };
+    };
   const interpolate = (text: string): string => {
     const ioResult = interpolateObservable(text);
     return ioResult.transformedText;

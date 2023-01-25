@@ -51,18 +51,17 @@ export function sensitiveEnvVarValueMutator(
 
   const override = options?.override;
 
-  const typicalMutate =
-    ((value: PotentiallyMutated<string>, reason: string) => {
-      const target = typeof value === "string" ? value : value.mutated;
-      const reasons = typeof value === "string"
-        ? [reason]
-        : (value.reasons ? [...value.reasons, reason] : [reason]);
-      if (target && target.length > 0) {
-        const mutated = "*".repeat(target.length);
-        return { original: value, mutated, reasons };
-      }
-      return value;
-    });
+  const typicalMutate = (value: PotentiallyMutated<string>, reason: string) => {
+    const target = typeof value === "string" ? value : value.mutated;
+    const reasons = typeof value === "string"
+      ? [reason]
+      : (value.reasons ? [...value.reasons, reason] : [reason]);
+    if (target && target.length > 0) {
+      const mutated = "*".repeat(target.length);
+      return { original: value, mutated, reasons };
+    }
+    return value;
+  };
 
   return (name, value) => {
     let result: PotentiallyMutated<string> = value;

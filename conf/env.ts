@@ -381,10 +381,10 @@ export abstract class EnvConfiguration<Configuration, Context = never>
         (({ envVarValue, config }) => {
           const [mutate] = propertyName(name);
           const flagText = envVarValue.toLocaleUpperCase();
-          const flag = (envVarValue &&
+          const flag = envVarValue &&
               (["YES", "1", "TRUE", "ON"].find((v) => flagText == v))
             ? true
-            : false);
+            : false;
           // deno-lint-ignore no-explicit-any
           (config as any)[mutate] = flag;
           return flag;
