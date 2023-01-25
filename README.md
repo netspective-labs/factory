@@ -142,3 +142,8 @@ Then:
 direnv allow
 deno test -A --unstable
 ```
+
+# TODO
+
+- Now that Deno supports NPM, replace Deno-specific libraries with NPM packages:
+  - AlaSQL
