@@ -4,8 +4,8 @@ import {
   magenta,
   red,
   white,
-} from "https://deno.land/std@0.147.0/fmt/colors.ts";
-import * as path from "https://deno.land/std@0.147.0/path/mod.ts";
+} from "https://deno.land/std@0.173.0/fmt/colors.ts";
+import * as path from "https://deno.land/std@0.173.0/path/mod.ts";
 import * as bcss from "../package/bundle-css.ts";
 
 const relativeToCWD = (absPath: string) => path.relative(Deno.cwd(), absPath);

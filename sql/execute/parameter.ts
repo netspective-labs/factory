@@ -1,4 +1,4 @@
-import * as hex from "https://deno.land/std@0.147.0/encoding/hex.ts";
+import * as hex from "https://deno.land/std@0.173.0/encoding/hex.ts";
 import * as safety from "../../safety/mod.ts";
 import * as SQLa from "../render/mod.ts";
 

@@ -1,8 +1,8 @@
-import * as t from "./lib/task/core.ts";
-import * as tcss from "./lib/task/transform-css.ts";
-import * as bjs from "./lib/task/bundle-js.ts";
-import * as udd from "./lib/task/udd.ts";
-import * as ss from "./lib/sql/shell/task.ts";
+import * as t from "./task/core.ts";
+import * as tcss from "./task/transform-css.ts";
+import * as bjs from "./task/bundle-js.ts";
+import * as udd from "./task/udd.ts";
+import * as ss from "./sql/shell/task.ts";
 
 // see setup and usage instructions in lib/task/README.md
 

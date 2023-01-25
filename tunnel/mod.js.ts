@@ -13,7 +13,7 @@
  *           if it doesn't exist just create a empty file named mod.auto.js
  */
 
-import { createDomain } from "https://unpkg.com/effector@22.3.0/effector.mjs";
+import { createDomain } from "https://unpkg.com/effector@22.5.0/effector.mjs";
 
 // Using Server Sent Events (SSEs or "EventSource") on anything but HTTP/2 connections is not recommended.
 // See [EventSource](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) warning section.

@@ -1,4 +1,4 @@
-import * as yaml from "https://deno.land/std@0.147.0/encoding/yaml.ts";
+import * as yaml from "https://deno.land/std@0.173.0/encoding/yaml.ts";
 
 export const wrap = (wrapper: string, str: string) =>
   `${wrapper}${str}${wrapper}`;

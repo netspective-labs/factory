@@ -1,6 +1,6 @@
-import * as yaml from "https://deno.land/std@0.147.0/encoding/yaml.ts";
-import * as toml from "https://deno.land/std@0.147.0/encoding/toml.ts";
-import * as iof from "https://deno.land/std@0.147.0/io/files.ts";
+import * as yaml from "https://deno.land/std@0.173.0/encoding/yaml.ts";
+import * as toml from "https://deno.land/std@0.173.0/encoding/toml.ts";
+import * as iof from "https://deno.land/std@0.173.0/io/files.ts";
 
 export type UntypedFrontmatter = Record<string, unknown>;
 

@@ -1,5 +1,5 @@
 import { fs } from "./deps.ts";
-import * as de from "https://deno.land/x/emit@0.3.0/mod.ts"; // not in deps because only this module needs it
+import * as de from "https://deno.land/x/emit@0.14.0/mod.ts"; // not in deps because only this module needs it
 import * as safety from "../safety/mod.ts";
 import * as extn from "../module/mod.ts";
 import * as c from "./content/mod.ts";

@@ -1,4 +1,4 @@
-import * as ta from "https://deno.land/std@0.147.0/testing/asserts.ts";
+import * as ta from "https://deno.land/std@0.173.0/testing/asserts.ts";
 import * as mod from "./flexible-args.ts";
 
 const syntheticScalarHook = "synthetic";

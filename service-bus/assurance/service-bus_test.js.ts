@@ -10,7 +10,7 @@
  */
 
 // export * as fingerprintJS from "https://openfpcdn.io/fingerprintjs/v3.3.3/esm.min.js";
-// export * as ghTimeCE from "https://unpkg.com/@github/time-elements@3.1.2/dist/index.js?module";
+// export * as ghTimeCE from "https://unpkg.com/@github/time-elements@4.0.0/dist/index.js?module";
 
 export * from "../../presentation/custom-element/badge/mod.ts";
 export * from "../../conf/flexible-args.ts";

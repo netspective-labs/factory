@@ -1,5 +1,5 @@
 import { fs, path } from "../render/deps.ts";
-import * as mt from "https://deno.land/std@0.147.0/media_types/mod.ts";
+import * as mt from "https://deno.land/std@0.173.0/media_types/mod.ts";
 import * as SQLa from "../render/mod.ts";
 import * as dv from "./data-vault.ts";
 import * as fm from "../../text/frontmatter.ts";

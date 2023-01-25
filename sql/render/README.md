@@ -48,7 +48,7 @@ rather than inheritance through classes.
 
 The main SQLa rendering library should not have any opinions about how to
 organize or model relational entities or attributions. That should be left to
-consumers of SQLa. The `$RF_HOME/lib/sql/models` module provides a `typical.ts`
+consumers of SQLa. The `$RF_HOME/sql/models` module provides a `typical.ts`
 which is an opinionated strategy for governing "typical" or "standard"
 relational entities and attributes based on "best practices".
 

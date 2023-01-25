@@ -1,6 +1,6 @@
-import * as colors from "https://deno.land/std@0.147.0/fmt/colors.ts";
-import * as path from "https://deno.land/std@0.147.0/path/mod.ts";
-import * as fs from "https://deno.land/std@0.147.0/fs/mod.ts";
+import * as colors from "https://deno.land/std@0.173.0/fmt/colors.ts";
+import * as path from "https://deno.land/std@0.173.0/path/mod.ts";
+import * as fs from "https://deno.land/std@0.173.0/fs/mod.ts";
 import * as cache from "../../../cache/mod.ts";
 import * as conf from "../../../conf/mod.ts";
 import * as pkg from "../../../package/mod.ts";

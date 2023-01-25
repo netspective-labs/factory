@@ -46,7 +46,7 @@ Deno.test("fselect SQL shell command", async (tc) => {
 
 Deno.test("mergestat Git SQL shell command", async (tc) => {
   const thisTestFilePath = path.dirname(path.fromFileUrl(import.meta.url));
-  const gitProjectHome = path.resolve(thisTestFilePath, "../../..");
+  const gitProjectHome = path.resolve(thisTestFilePath, "../..");
   const mergestat = new mod.GitQueryCmdExecutive();
   const ctx = SQLa.typicalSqlEmitContext();
   type Context = typeof ctx;

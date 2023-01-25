@@ -1,5 +1,5 @@
 import { events } from "../deps.ts";
-import * as sqlite from "https://deno.land/x/sqlite@v3.4.0/mod.ts";
+import * as sqlite from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import * as SQLa from "../render/mod.ts";
 import * as ex from "../execute/mod.ts";
 import * as eng from "./engine.ts";

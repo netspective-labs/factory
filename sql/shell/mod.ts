@@ -95,6 +95,7 @@ export class SqlCmdExecutive<
         SQL,
         resultNature,
       });
+      console.log(stdErr);
     }
     cmd.close();
     return result;

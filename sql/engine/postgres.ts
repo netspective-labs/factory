@@ -1,7 +1,7 @@
 import { events } from "../deps.ts";
 import * as ax from "../../axiom/mod.ts";
 import * as axEnv from "../../axiom/axiom-serde-env.ts";
-import * as pg from "https://deno.land/x/postgres@v0.16.1/mod.ts";
+import * as pg from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 import * as SQLa from "../render/mod.ts";
 import * as ex from "../execute/mod.ts";
 import * as eng from "./engine.ts";

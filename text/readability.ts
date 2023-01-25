@@ -1,4 +1,4 @@
-import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.32-alpha/deno-dom-wasm.ts";
+import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.36-alpha/deno-dom-wasm.ts";
 import { Readability } from "https://cdn.skypack.dev/@mozilla/readability@0.4.2";
 
 export interface ReadabilityResult {

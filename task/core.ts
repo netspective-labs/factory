@@ -1,4 +1,4 @@
-import * as colors from "https://deno.land/std@0.147.0/fmt/colors.ts";
+import * as colors from "https://deno.land/std@0.173.0/fmt/colors.ts";
 import * as events from "https://deno.land/x/eventemitter@1.2.4/mod.ts";
 
 // we export this since it's comprises the core Taskfile.ts "Tasks" instance.

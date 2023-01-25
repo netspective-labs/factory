@@ -56,7 +56,7 @@ Deno.test("GitLab content from GLTEST_* env (with and without FS proxy)", async 
         qeProxyFsHome,
         // the identity names a reusable connection pool; the PG engine uses the ID
         // to reuse a pool when a cached config identity is found.
-        identity: `netspective-labs/factory/lib/sql/models/gitlab_test.ts`,
+        identity: `netspective-labs/factory/sql/models/gitlab_test.ts`,
         database: "gitlabhq_production",
         hostname: textEnvPlaceholder, // optionally from env
         port: intEnvPlaceholder, // optionally from env
@@ -69,7 +69,7 @@ Deno.test("GitLab content from GLTEST_* env (with and without FS proxy)", async 
       if (!pgco.port) pgco.port = 5033;
       if (!pgco.user || !pgco.password) {
         console.error(ws.unindentWhitespace(`
-          Unable to test valid PostgreSQL connection, GLTEST_PKC_PGUSER or GLTEST_PKC_PGPASSWORD env vars missing.
+          Unable to test valid PostgreSQL connection, GLTEST_PGUSER or GLTEST_PGPASSWORD env vars missing.
 
           $ export GLTEST_PGUSER=gitlab_username GLTEST_PGPASSWORD=gitlab_password if PGHOSTADDR=${pgco.hostname} and PGPORT=${pgco.port} are OK, or
           $ export GLTEST_PGUSER=gitlab_username GLTEST_PGPASSWORD=gitlab_password GLTEST_PGHOSTADDR=x.y.z.n and GLTEST_PGPORT=nnnn`));

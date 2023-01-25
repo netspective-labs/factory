@@ -1,6 +1,6 @@
 import * as exec from "./mod.ts";
 import * as sql from "../../sql/mod.ts";
-import * as dzx from "https://deno.land/x/dzx@0.3.1/mod.ts";
+import * as dzx from "https://deno.land/x/dzx@0.4.0/mod.ts";
 
 export const DEFAULT_OSQI_PATH =
   Deno.env.get("RF_SQL_SHELL_OSQUERYI_LOCATION") ?? "/usr/local/bin/osqueryi";

@@ -1,5 +1,5 @@
 import { events } from "../deps.ts";
-import * as dzx from "https://deno.land/x/dzx@0.3.1/mod.ts";
+import * as dzx from "https://deno.land/x/dzx@0.4.0/mod.ts";
 import * as gh from "../../task/github.ts";
 
 // deno-lint-ignore no-explicit-any

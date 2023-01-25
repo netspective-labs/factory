@@ -157,7 +157,7 @@ Deno.test("PostgreSQL engine connection URI configuration", async (tc) => {
 Deno.test("PostgreSQL invalid connection", async () => {
   const pgdbcc = mod.pgDbConnEnvConfig();
   const config = pgdbcc.configure({
-    identity: `netspective-labs/factory/lib/sql/engine/postgres_test.ts`,
+    identity: `netspective-labs/factory/sql/engine/postgres_test.ts`,
     database: "database",
     hostname: "hostname",
     port: 5433,
@@ -195,7 +195,7 @@ Deno.test("PostgreSQL valid connection from TESTVALID_PKC_* env with FS proxy", 
   const config = pgdbcc.configure({
     configured: true,
     qeProxyFsHome,
-    identity: `netspective-labs/factory/lib/sql/engine/postgres_test.ts`,
+    identity: `netspective-labs/factory/sql/engine/postgres_test.ts`,
     database: "gitlabhq_production",
     hostname: "192.168.2.24",
     port: 5033,

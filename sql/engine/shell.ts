@@ -1,4 +1,4 @@
-import * as path from "https://deno.land/std@0.147.0/path/mod.ts";
+import * as path from "https://deno.land/std@0.173.0/path/mod.ts";
 import { events } from "../deps.ts";
 import * as safety from "../../safety/mod.ts";
 import * as SQLa from "../render/mod.ts";

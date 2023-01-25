@@ -1,4 +1,4 @@
-import * as base64 from "https://deno.land/std@0.147.0/encoding/base64.ts";
+import * as base64 from "https://deno.land/std@0.173.0/encoding/base64.ts";
 
 export const testDynamicCSS = (className: string) => `
 .${className} {

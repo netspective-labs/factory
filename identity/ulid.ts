@@ -1,5 +1,5 @@
 // Universally Unique Lexicographically Sortable Identifier
-// source: https://github.com/ulid/javascript/blob/master/lib/index.ts
+// source: https://github.com/ulid/javascript/blob/master/index.ts
 export interface ULID {
   (seedTime?: number): string;
 }

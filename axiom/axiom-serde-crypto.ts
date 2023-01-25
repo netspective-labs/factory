@@ -1,6 +1,6 @@
 import * as safety from "../safety/mod.ts";
 import * as axsd from "./axiom-serde.ts";
-import * as hex from "https://deno.land/std@0.147.0/encoding/hex.ts";
+import * as hex from "https://deno.land/std@0.173.0/encoding/hex.ts";
 
 // deno-lint-ignore no-explicit-any
 export type Any = any; // make it easier on Deno linting
