@@ -5,7 +5,7 @@ import * as p from "./proxy.ts";
 import * as mod from "./flexible.ts";
 import * as shG from "../shell/governance.ts";
 
-const isCICD = Deno.env.get("CI") ? true : false;
+const _isCICD = Deno.env.get("CI") ? true : false;
 
 export function testInventory(
   identity = "typicalSqlStmts",

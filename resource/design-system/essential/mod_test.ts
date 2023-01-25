@@ -1,11 +1,8 @@
 import { testingAsserts as ta } from "../../deps-test.ts";
 import { path } from "../../deps.ts";
 import * as extn from "../../../module/mod.ts";
-import * as git from "../../../git/mod.ts";
-import * as k from "../../../knowledge/mod.ts";
 import * as ws from "../../../text/whitespace.ts";
 import * as c from "../../content/mod.ts";
-import * as r from "../../../route/mod.ts";
 import * as ua from "../../design-system/universal/assets.ts";
 import * as html from "../../html/mod.ts";
 import * as mod from "./mod.ts";
@@ -130,7 +127,7 @@ Deno.test(`TailwindDesignSystem rendering with synthetic HTML layout, no navigat
 });
 
 Deno.test(`TailwindDesignSystem rendering with synthetic HTML layout, with navigation and dynamic content`, async () => {
-  const syntheticMarkdownNoDecoration = ws.unindentWhitespace(`
+  const _syntheticMarkdownNoDecoration = ws.unindentWhitespace(`
     ---
     folksonomy: [a, b, c]
     custom: value
